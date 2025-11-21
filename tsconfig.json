@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@utils": ["src/utils/index.ts"],
+      "@types": ["src/types/index.ts"],
+      "@controllers": ["src/controllers/index.ts"],
+      "@models": ["src/models/index.ts"],
+      "@exceptions": ["src/exceptions/index.ts"],
+      "@repositories": ["src/repositories/index.ts"],
+      "@routes": ["src/routes/index.ts"],
+      "@services": ["src/services/index.ts"],
+      "@config": ["src/config/database.ts"]
+    },
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "sourceMap": true // gera sourcemap para facilitar debug
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

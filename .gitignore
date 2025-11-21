@@ -1,0 +1,13 @@
+*.env
+.idea
+.vscode
+
+dist
+_temp
+logs
+node_modules
+tsconfig.tsbuildinfo
+.dependency-cruiser.js
+
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
