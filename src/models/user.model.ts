@@ -19,6 +19,12 @@ export class User {
   @Column({ length: 100 })
   password!: string;
 
+  @Column({ length: 255, nullable: true })
+  biography!: string;
+
+  @Column({ length: 300, nullable: true })
+  address!: string
+
   @Column({ type: 'date', nullable: true })
   birthDate?: Date;
 

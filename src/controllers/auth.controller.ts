@@ -1,23 +1,23 @@
-import type { Request, Response } from "express";
+import type { Request, Response } from 'express';
 
-import { IAuthService } from "@types";
-import { MissingFieldsError } from "@exceptions";
+import { IAuthService } from '@types';
+import { MissingFieldsError } from '@exceptions';
 
 export class AuthController {
-  private readonly authService: IAuthService;
+  private readonly service: IAuthService;
 
-  constructor(authService: IAuthService) {
-    this.authService = authService;
+  constructor(service: IAuthService) {
+    this.service = service;
   }
 
   async authenticate(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      throw new MissingFieldsError("Email and password are required");
+      throw new MissingFieldsError('Email and password are required');
     }
 
-    const token = await this.authService.authenticate(email, password);
+    const token = await this.service.authenticate(email, password);
 
     res.json(token);
   }

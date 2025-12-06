@@ -7,17 +7,18 @@ import {
   JoinTable,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from 'typeorm';
 
 import { MangaStatus } from '@types';
 
-import { Tag, User, Chapter } from '@models';
+import { Tag, User, Chapter, Commentary } from '@models';
+import { UUID } from '@utils';
 
 @Entity('manga')
 export class Manga {
-  @PrimaryGeneratedColumn('increment')
-  id!: number;
+  @PrimaryColumn('uuid')
+  id: string = UUID.generate();
 
   @Column({ length: 255 })
   title!: string;
@@ -34,10 +35,7 @@ export class Manga {
   @Column({ default: false })
   isMature!: boolean;
 
-  @Column({ default: true })
-  isActive!: boolean;
-
-  @Column({ type: 'enum', enum: MangaStatus, default: MangaStatus.ACTIVE })
+  @Column({ type: 'enum', enum: MangaStatus, default: MangaStatus.ACTIVED })
   status!: MangaStatus;
 
   @CreateDateColumn({ type: 'timestamptz', default: () => 'now()' })
@@ -76,4 +74,10 @@ export class Manga {
 
   @OneToMany(() => Chapter, (chapter) => chapter.manga, { cascade: true })
   chapters!: Chapter[];
+
+  @OneToMany(() => Commentary, (commentary) => commentary.manga, { cascade: true })
+  comments!: Commentary[];
+
+  @Column({ type: 'int', default: 0 })
+  chapterCount!: number;
 }

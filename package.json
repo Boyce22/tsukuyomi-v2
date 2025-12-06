@@ -2,15 +2,18 @@
   "name": "tsukuyomi",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
-    "build": "tsup",
-    "dev": "ts-node-dev --respawn --transpile-only --require tsconfig-paths/register --env-file=.env src/server.ts",
-    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/shared/infrastructure/config/database.ts",
-    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d src/shared/infrastructure/config/database.ts",
+    "dev": "ts-node-dev --respawn --transpile-only --require tsconfig-paths/register --env-file .env src/server.ts",
+    "build": "tsup src/server.ts --format cjs,esm --dts",
+    "start": "node dist/server.js",
+    "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate",
+    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d src/config/database.ts",
+    "migration:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create -d src/config/database.ts",
     "format": "prettier --write .",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint:deps": "depcruise --config .dependency-cruiser.js src"
+    "lint": "eslint . --ext .ts",
+    "lint:deps": "depcruise --config .dependency-cruiser.js src",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -18,8 +21,11 @@
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "client-s3": "github:aws-sdk/client-s3",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
     "discord.js": "^14.24.2",
     "express": "^5.1.0",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
     "pg": "^8.16.3",
@@ -28,12 +34,18 @@
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "tsup": "^8.5.1",
-    "typeorm": "0.3.27"
+    "typeorm": "0.3.27",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
+    "@typescript-eslint/parser": "^8.4.7",
+    "eslint": "^9.39.1",
     "pino-pretty": "^13.1.2"
   }
 }

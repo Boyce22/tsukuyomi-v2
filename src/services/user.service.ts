@@ -1,6 +1,6 @@
 import { Role, User } from '@models';
 
-import { PasswordNotMatchError, ProfilePictureChangeError, StorageConfigError, UserNotFoundError } from '@exceptions';
+import { PasswordNotMatchError, StorageConfigError, UserNotFoundError } from '@exceptions';
 
 import {
   CreateUser,
@@ -70,14 +70,17 @@ export class UserService implements IUserService {
     }
 
     const isValid = user && (await this.hashProvider.compare(password, user.password));
-
     if (!isValid) {
       throw new PasswordNotMatchError('The password does not match the current password');
     }
 
-    const hashedPassword = await this.hashProvider.hash(newPassword);
+    const isNewPasswordEqual = await this.hashProvider.compare(newPassword, user.password);
+    if (isNewPasswordEqual) {
+      throw new Error('The new password must be different from the current password');
+    }
 
-    await this.repository.update(id, { password: hashedPassword });
+    const hashed = await this.hashProvider.hash(newPassword);
+    await this.repository.update(id, { password: hashed, lastPasswordChange: new Date() }, user);
 
     return 'Password updated successfully';
   }

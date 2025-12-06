@@ -20,7 +20,8 @@ export interface IUserRepository {
   register(dto: CreateUser): Promise<User>;
   findById(id: string): Promise<User | null>;
   findByEmail(email: string): Promise<User | null>;
-  update(id: string, data: Partial<User>): Promise<string>;
+  update(id: string, data: Partial<User>, userFound?: User): Promise<string>;
+  findLastPasswordChangeById(id: string): Promise<User | null>;
 }
 
 export interface IUserRoleRepository {

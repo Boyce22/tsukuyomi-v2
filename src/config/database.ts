@@ -4,8 +4,8 @@ import { DataSource } from 'typeorm';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const rootDir = isProduction ? 'dist' : 'src';
-const extension = isProduction ? 'js' : 'ts';
+const rootDir = isProduction ? 'src' : 'src';
+const extension = isProduction ? 'ts' : 'ts';
 
 const PORT = parseInt(process.env.DB_PORT!);
 

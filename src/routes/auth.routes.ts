@@ -1,16 +1,16 @@
-import { Router } from 'express';
-import { IAuthController } from '@types';
+import { AuthController } from '@controllers';
+import { Router, Request, Response } from 'express';
 
 export class AuthRouter {
-  private readonly router: Router;
+  private readonly router = Router();
 
-  constructor(private readonly controller: IAuthController) {
+  constructor(private readonly controller: AuthController) {
     this.router = Router();
-    this.registerRoutes();
+    this.initializeRoutes();
   }
 
-  private registerRoutes(): void {
-    this.router.post('/', this.controller.authenticate);
+  private initializeRoutes(): void {
+    this.router.post('/', (req: Request, res: Response) => this.controller.authenticate(req, res));
   }
 
   getRoutes(): Router {

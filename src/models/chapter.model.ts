@@ -1,19 +1,12 @@
-import {
-  Entity,
-  Column,
-  ManyToOne,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Entity, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn, PrimaryColumn } from 'typeorm';
 
+import { UUID } from '@utils';
 import { Page, User, Manga } from '@models';
 
 @Entity('chapter')
 export class Chapter {
-  @PrimaryGeneratedColumn('increment')
-  id!: number;
+  @PrimaryColumn('uuid')
+  id: string = UUID.generate()
 
   @Column({ type: 'int' })
   number!: number; // número do capítulo

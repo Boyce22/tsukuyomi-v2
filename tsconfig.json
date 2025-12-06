@@ -17,7 +17,10 @@
       "@repositories": ["src/repositories/index.ts"],
       "@routes": ["src/routes/index.ts"],
       "@services": ["src/services/index.ts"],
-      "@config": ["src/config/database.ts"]
+      "@database": ["src/config/database.ts"],
+      "@factories": ["src/factories/index.ts"],
+      "@config/*": ["src/config/*"],
+      "@middlewares": ["src/middlewares/index.ts"]
     },
     "forceConsistentCasingInFileNames": true,
     "outDir": "dist",

@@ -7,7 +7,7 @@ export class Role {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column({ type: 'enum', enum: Roles, unique: true, length: 50 })
+  @Column({ type: 'enum', enum: Roles, unique: true })
   name!: Roles;
 
   @Column({ default: true })
